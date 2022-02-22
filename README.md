@@ -1,1 +1,2 @@
 ClubhelperMicroserviceJenkinsfile
+Jenkins Pipleline Script to build all Clubhelper Microservice projects
