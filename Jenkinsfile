@@ -33,9 +33,9 @@ node {
 	    stage('Build backend image') {
 	        sh "${mvnHome}/bin/mvn -DskipTests spring-boot:build-image -Dspring-boot.build-image.imageName=markuskreth/clubhelperrest"
 	    }
-	//    stage('Create Docker image backend') {
-	//    	sh "java -Djarmode=layertools -jar target/ClubhelperModel*.jar list"
-	//    }
+	    stage('Create Docker image backend') {
+	    	sh "java -Djarmode=layertools -jar target/ClubhelperModel*.jar list"
+	    }
 	    stage('Install Docker image backend') {
 	        sh "docker build --tag markuskreth/clubhelperrest ."
 	    }
