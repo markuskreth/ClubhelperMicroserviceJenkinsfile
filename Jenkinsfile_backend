@@ -17,7 +17,7 @@ node {
 	    	sh "java -Djarmode=layertools -jar target/ClubhelperModel*.jar list"
 	    }
 	    stage('Install Docker image backend') {
-	        sh "docker build --tag markuskreth/clubhelperrest ."
+	        backendImage = docker.build("markuskreth/clubhelperrest")
 	    }
     }
 }

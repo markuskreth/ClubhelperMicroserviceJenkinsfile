@@ -37,7 +37,23 @@ node {
 	    	sh "java -Djarmode=layertools -jar target/ClubhelperModel*.jar list"
 	    }
 	    stage('Install Docker image backend') {
-	        sh "docker build --tag markuskreth/clubhelperrest ."
+	        backendImage = docker.build("markuskreth/clubhelperrest")
+	    }
+    }
+    dir('personedit') {
+    	pwd()
+	    stage('Checkout personedit') {
+	    	cleanWs()
+	        git branch: 'master', credentialsId: 'github_markus_password', url: 'https://github.com/markuskreth/clubhelper-personedit.git'
+	    }
+	    stage('Build personedit') {
+	        sh "${mvnHome}/bin/mvn -DskipTests -Pproduction vaadin:prepare-frontend vaadin:build-frontend install"
+	    }
+	    stage('Create Docker image personedit') {
+	    	sh "java -Djarmode=layertools -jar target/clubhelper-personedit*.jar list"
+	    }
+	    stage('Install Docker image personedit') {
+	        personEditImage = docker.build("markuskreth/clubhelperpersonedit")
 	    }
     }
 }
